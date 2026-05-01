@@ -2,7 +2,7 @@
 
 Simulação de sistema IoT para estacionamento com 90 sensores de vagas e 3 gateways.
 
-## Funcionalidades
+## Funções
 
 - **90 Sensores**: Um por vaga, publicam status (FREE/OCCUPIED) via MQTT.
 - **3 Gateways**: Um por setor (30 vagas cada), agregam status do setor.
@@ -16,13 +16,12 @@ Simulação de sistema IoT para estacionamento com 90 sensores de vagas e 3 gate
 - `sensor.js`: Simula os 90 sensores.
 - `gateway.js`: Simula os 3 gateways.
 - `failure_server.js`: Servidor HTTP para injetar falhas.
-- `pubQos1.js` e `subQos1.js`: Exemplos MQTT antigos (pode ignorar).
 
-## Como Executar
+## Execução
 
-1. Instalar dependências: `npm install mqtt express`
+1. dependências: `npm install mqtt express`
 
-2. Iniciar broker MQTT (ex.: mosquitto): `mosquitto -p 1883`
+2. Iniciar broker: `mosquitto -p 1883`
 
 3. Executar sensores: `node sensor.js`
 
