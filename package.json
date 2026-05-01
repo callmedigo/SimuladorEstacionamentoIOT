@@ -1,0 +1,16 @@
+{
+  "name": "iot-estacionamento",
+  "version": "1.0.0",
+  "description": "Simulação IoT para estacionamento",
+  "main": "sensor.js",
+  "type": "module",
+  "scripts": {
+    "start:sensors": "node sensor.js",
+    "start:gateways": "node gateway.js",
+    "start:failures": "node failure_server.js"
+  },
+  "dependencies": {
+    "mqtt": "^5.3.4",
+    "express": "^4.18.2"
+  }
+}
