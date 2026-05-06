@@ -33,7 +33,7 @@ function injectFailure(spotId, failureType) {
   spotFailures.set(spotId, failureType);
   const duration = getRandomFailureDuration();
   
-  console.log(`[${new Date().toLocaleTimeString()}] 🔴 Falha injetada: Spot ${spotId} - ${failureType} (duração: ${Math.floor(duration / 1000)}s)`);
+  console.log(`[${new Date().toLocaleTimeString()}] Falha injetada: Spot ${spotId} - ${failureType} (duração: ${Math.floor(duration / 1000)}s)`);
 
   // Agendar limpeza da falha
   const timeoutId = setTimeout(() => {
@@ -48,7 +48,7 @@ function clearFailure(spotId) {
     const failureType = spotFailures.get(spotId);
     spotFailures.delete(spotId);
     activeFailures.delete(spotId);
-    console.log(`[${new Date().toLocaleTimeString()}] 🟢 Falha removida: Spot ${spotId} (${failureType})`);
+    console.log(`[${new Date().toLocaleTimeString()}] Falha removida: Spot ${spotId} (${failureType})`);
   }
 }
 
@@ -61,7 +61,7 @@ setInterval(() => {
   }
 }, FAILURE_INJECTION_INTERVAL);
 
-console.log('🚗 Simulador de falhas iniciado');
+console.log(' Simulador de falhas iniciado');
 console.log(`   - Intervalo de injeção: ${FAILURE_INJECTION_INTERVAL / 1000}s`);
 console.log(`   - Probabilidade de falha: ${FAILURE_PROBABILITY * 100}%`);
 console.log(`   - Duração das falhas: ${FAILURE_DURATION_MIN / 1000}s a ${FAILURE_DURATION_MAX / 1000}s`);
