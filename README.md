@@ -8,26 +8,33 @@ Simulação de sistema IoT para estacionamento com 90 sensores de vagas e 3 gate
 - **3 Gateways**: Um por setor (30 vagas cada), agregam status do setor.
 - **Padrões Realistas**: Horários de pico (7-9h e 17-19h) com mais chegadas, tempo de permanência 30min-6h.
 - **Tempo Simulado**: 1 segundo = 1 minuto simulado.
-- **Modo de Teste**: Injeção de falhas via HTTP API.
+- **Injeção Automática de Falhas**: Falhas aleatórias injetadas continuamente no simulador.
 
 ## Arquivos
 
 - `config.js`: Configurações e constantes.
 - `sensor.js`: Simula os 90 sensores.
 - `gateway.js`: Simula os 3 gateways.
-- `failure_server.js`: Servidor HTTP para injetar falhas.
+- `failure_server.js`: Simula injeção automática de falhas aleatórias.
 
 ## Execução
 
-1. dependências: `npm install mqtt express`
+### Rápido (tudo junto):
+```bash
+npm install
+npm start
+```
 
-2. Iniciar broker: `mosquitto -p 1883`
+### Componente por componente:
+1. Dependências: `npm install`
 
-3. Executar sensores: `node sensor.js`
+2. Iniciar broker MQTT: `mosquitto -p 1883`
 
-4. Executar gateways: `node gateway.js`
+3. Executar sensores: `npm run start:sensors`
 
-5. Executar servidor de falhas: `node failure_server.js`
+4. Executar gateways: `npm run start:gateways`
+
+5. Executar simulador de falhas: `npm run start:failures`
 
 ## Tópicos MQTT
 
@@ -48,10 +55,12 @@ Payload JSON:
 
 Para gateways, spotId pode ser "ALL" e state "HEALTHY" com contagens adicionais.
 
-## API de Falhas
+## Simulador de Falhas
 
-- `POST /inject-failure`: Body: `{ "spotId": 1, "failureType": "stuck_occupied" }`
-- `DELETE /clear-failure/{spotId}`: Limpa falha da vaga
-- `GET /failures`: Lista falhas ativas
+O `failure_server.js` injeta falhas aleatoriamente e continuamente:
+- **Intervalo de injeção**: 30 segundos
+- **Probabilidade**: 30% de chance de injetar falha a cada intervalo
+- **Duração**: Cada falha dura entre 1-5 minutos e é removida automaticamente
+- **Funcionamento**: Roda autonomamente sem necessidade de requisições HTTP
 
-Tipos de falha: `none`, `stuck_occupied`, `stuck_free`, `flapping`
+Tipos de falha: `stuck_occupied`, `stuck_free`, `flapping`
